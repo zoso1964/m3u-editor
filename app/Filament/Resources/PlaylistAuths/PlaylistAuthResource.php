@@ -20,9 +20,9 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Resources\Resource;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
+use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -153,6 +153,18 @@ class PlaylistAuthResource extends Resource
                 ->helperText('If set, this account will stop working at that exact time.')
                 ->nullable()
                 ->columnSpan(2),
+            TextInput::make('max_streams')
+                ->label('Max Streams')
+                ->numeric()
+                ->minValue(1)
+                ->nullable()
+                ->helperText('Maximum concurrent streams allowed for this user. Leave empty for unlimited.')
+                ->columnSpan(1),
+            Toggle::make('stop_oldest_on_limit')
+                ->label('Stop Oldest on Limit')
+                ->helperText('Automatically stop the oldest stream when the limit is reached.')
+                ->default(false)
+                ->columnSpan(1),
         ];
 
         return [
